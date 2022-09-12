@@ -124,29 +124,29 @@ end
 III=find(abs(y-5)==min(abs(y-5)));
 
 figure
-semilogy((1:LL)/1000,squeeze(sum(sum(TKE_mpEDMD(:,III,:),2),1))*abs(y(2)-y(1))*abs(x(2)-x(1)),'g','linewidth',2); hold on
-plot((1:LL)/1000,squeeze(sum(sum(TKE_piDMD(:,III,:),2),1))*abs(y(2)-y(1))*abs(x(2)-x(1)),'b','linewidth',2)
-plot((1:LL)/1000,squeeze(sum(sum(TKE_EDMD(:,III,:),2),1))*abs(y(2)-y(1))*abs(x(2)-x(1)),'r','linewidth',2)
-semilogy((1:LL)/1000,(1:LL)*0+mean(squeeze(sum(sum(TKE(:,III,:),2),1)))*abs(y(2)-y(1))*abs(x(2)-x(1)),'k','linewidth',2)
-semilogy((3500:LL)/1000,max(abs(E_EDMD)).^(2*(3500:LL))/12,'--k','linewidth',2)
+semilogy((1:LL)/1000,squeeze(mean(mean(TKE_mpEDMD(:,III,:),2),1))/2500,'g','linewidth',2); hold on
+plot((1:LL)/1000,squeeze(mean(mean(TKE_piDMD(:,III,:),2),1))/2500,'b','linewidth',2)
+plot((1:LL)/1000,squeeze(mean(mean(TKE_EDMD(:,III,:),2),1))/2500,'r','linewidth',2)
+semilogy((1:LL)/1000,(1:LL)*0+mean(squeeze(mean(mean(TKE(:,III,:),2),1)))/2500,'k','linewidth',2)
+semilogy((3500:LL)/1000,max(abs(E_EDMD)).^(2*(3500:LL))/1000000,'--k','linewidth',2)
 ax = gca; ax.FontSize = 16;
 legend({'\texttt{mpEDMD}','piDMD','EDMD','Mean TKE of flow'},'interpreter','latex','fontsize',16,'location','northwest')
 
 III=find(abs(y-35)==min(abs(y-35)));
 
 figure
-semilogy((1:LL)/1000,squeeze(sum(sum(TKE_mpEDMD(:,III,:),2),1))*abs(y(2)-y(1))*abs(x(2)-x(1)),'g','linewidth',2); hold on
-plot((1:LL)/1000,squeeze(sum(sum(TKE_piDMD(:,III,:),2),1))*abs(y(2)-y(1))*abs(x(2)-x(1)),'b','linewidth',2)
-plot((1:LL)/1000,squeeze(sum(sum(TKE_EDMD(:,III,:),2),1))*abs(y(2)-y(1))*abs(x(2)-x(1)),'r','linewidth',2)
-semilogy((1:LL)/1000,(1:LL)*0+mean(squeeze(sum(sum(TKE(:,III,:),2),1)))*abs(y(2)-y(1))*abs(x(2)-x(1)),'k','linewidth',2)
-semilogy((3500:LL)/1000,max(abs(E_EDMD)).^(2*(3500:LL))/8,'--k','linewidth',2)
+semilogy((1:LL)/1000,squeeze(mean(mean(TKE_mpEDMD(:,III,:),2),1))/2500,'g','linewidth',2); hold on
+plot((1:LL)/1000,squeeze(mean(mean(TKE_piDMD(:,III,:),2),1))/2500,'b','linewidth',2)
+plot((1:LL)/1000,squeeze(mean(mean(TKE_EDMD(:,III,:),2),1))/2500,'r','linewidth',2)
+semilogy((1:LL)/1000,(1:LL)*0+mean(squeeze(mean(mean(TKE(:,III,:),2),1)))/2500,'k','linewidth',2)
+semilogy((3500:LL)/1000,max(abs(E_EDMD)).^(2*(3500:LL))/800000,'--k','linewidth',2)
 ax = gca; ax.FontSize = 16;
 legend({'\texttt{mpEDMD}','piDMD','EDMD','Mean TKE of flow'},'interpreter','latex','fontsize',16,'location','northwest')
 
 figure
-plot(y,sum(mean(TKE_mpEDMD,3),1)*abs(y(2)-y(1))*abs(x(2)-x(1)),'g','linewidth',4); hold on
-plot(y,sum(mean(TKE_piDMD,3),1)*abs(y(2)-y(1))*abs(x(2)-x(1)),'b','linewidth',4)
-plot(y,sum(mean(TKE,3),1)*abs(y(2)-y(1))*abs(x(2)-x(1)),'k','linewidth',2)
+plot(y,mean(mean(TKE_mpEDMD,3),1)/2500,'g','linewidth',4); hold on
+plot(y,mean(mean(TKE_piDMD,3),1)/2500,'b','linewidth',4)
+plot(y,mean(mean(TKE,3),1)/2500,'--k','linewidth',2)
 xlim([0,max(y)]);   ax = gca; ax.FontSize = 16;
 legend({'\texttt{mpEDMD}','piDMD','Mean TKE of flow'},'interpreter','latex','fontsize',16,'location','best')
 
@@ -154,28 +154,28 @@ legend({'\texttt{mpEDMD}','piDMD','Mean TKE of flow'},'interpreter','latex','fon
 figure
 toPlot = (k_x(NNx).*abs(Psi11_y(:,NNx))./(mean(mean(Ruu,2)) )  );
 LLL=max(toPlot(:));
-contourf(lambda_x, y , toPlot ,40,'edgecolor','none')
+contourf(k_x(NNx), y , toPlot ,40,'edgecolor','none')
 set(gca,'xscale','log');
 colormap(turbo);    caxis([0 LLL]);    colorbar;
 ax = gca; ax.FontSize = 16;
 
 figure
 toPlot = (k_x(NNx).*abs(Psi11_y_mpEDMD(:,NNx))./(mean(mean(Ruu_mpEDMD,2)) )  );
-contourf(lambda_x, y , toPlot ,40,'edgecolor','none')
+contourf(k_x(NNx), y , toPlot ,40,'edgecolor','none')
 set(gca,'xscale','log');
 colormap(turbo);    caxis([0 LLL]);    colorbar;
 ax = gca; ax.FontSize = 16;
 
 figure
 toPlot = (k_x(NNx).*abs(Psi11_y_piDMD(:,NNx))./(mean(mean(Ruu_mpEDMD,2)) )  );
-contourf(lambda_x, y , toPlot ,40,'edgecolor','none')
+contourf(k_x(NNx), y , toPlot ,40,'edgecolor','none')
 set(gca,'xscale','log');
 colormap(turbo);    caxis([0 LLL]);    colorbar;
 ax = gca; ax.FontSize = 16;
 
 figure
 toPlot = (k_x(NNx).*abs(Psi11_y_EDMD(:,NNx))./(mean(mean(Ruu_EDMD,2)) )  );
-contourf(lambda_x, y , toPlot ,40,'edgecolor','none')
+contourf(k_x(NNx), y , toPlot ,40,'edgecolor','none')
 set(gca,'xscale','log');
 colormap(turbo);    caxis([0 LLL]);    
 colorbar;
