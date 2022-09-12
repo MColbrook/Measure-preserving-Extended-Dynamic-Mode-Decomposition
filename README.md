@@ -1,5 +1,5 @@
 # Measure-preserving-Extended-Dynamic-Mode-Decomposition
-General purpose code and examples for the mpEDMD algorithm.
+General purpose code and examples for the mpEDMD algorithm. Computation of spectral properties of Koopman operators associated with measure-preserving dynamical systems. Highlights include: convergence to spectral properties of Koopman operator, measure-preserving discretization, and increased robustness to noise.
 
 The reference paper can be found here:<br>
 https://arxiv.org/pdf/2209.02244.pdf<br>
