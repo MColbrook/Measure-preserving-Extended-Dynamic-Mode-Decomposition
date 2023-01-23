@@ -24,7 +24,7 @@ PSI_X3=zeros(M,N+1);   PSI_X3(:,1)=Y(1:M,3);
 pf = parfor_progress(N);
 pfcleanup = onCleanup(@() delete(pf));
 for j=2:N+1
-    PSI_X1(:,j)=Y((1:M)+j,1);    PSI_X2(:,j)=Y((1:M)+j,2);    PSI_X3(:,j)=Y((1:M)+j,3);
+    PSI_X1(:,j)=Y((1:M)+j-1,1);    PSI_X2(:,j)=Y((1:M)+j-1,2);    PSI_X3(:,j)=Y((1:M)+j-1,3);
     parfor_progress(pf);
 end
 %% G and A matrices
@@ -87,16 +87,16 @@ AA=([PSI_X1(:,1:333),PSI_X2(:,1:333),PSI_X3(:,1:333)]'*[PSI_X1(:,2:(333+1)),PSI_
 [~,mpVV,mpDD] = mpEDMD(GG,AA);
 mpEE=diag(mpDD);
 %%
-phi=chebfun(@(t) exp(sin(t)),[-pi pi],'periodic'); % test function
+phi=@(t) (1-0.99999999*exp(1i*t)).^2.*log(1-0.99999999*exp(1i*t)); % test function
 NN=size(GG,1);
 cc1=zeros(NN,1); cc1(1)=1;
-dE1=mpVV*((mpVV'*GG*cc1).*phi(mpEE(:)));
+dE1=mpVV*((mpVV'*GG*cc1).*phi(angle(mpEE(:))));
 
 cc2=zeros(999,1); cc2(NN/3+1)=1;
-dE2=mpVV*((mpVV'*GG*cc2).*phi(mpEE(:)));
+dE2=mpVV*((mpVV'*GG*cc2).*phi(angle(mpEE(:))));
 
 cc3=zeros(999,1); cc3(2*NN/3+1)=1;
-dE3=mpVV*((mpVV'*GG*cc3).*phi(mpEE(:)));
+dE3=mpVV*((mpVV'*GG*cc3).*phi(angle(mpEE(:))));
 
 %% Plot results (function on attractor)
 C=[PSI_X1(1:min(2*10^4,M),1:NN/3),PSI_X2(1:min(2*10^4,M),1:NN/3),PSI_X3(1:min(2*10^4,M),1:NN/3)]*dE1;
